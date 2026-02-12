@@ -4,16 +4,22 @@ FROM python:3.10-slim
 # Set the working directory in the container
 WORKDIR /app
 
+# Install system build dependencies (sometimes needed for packages)
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
 # Copy the requirements file into the container at /app
 COPY requirements.txt .
 
-# Install any needed packages specified in requirements.txt
-# We use --no-cache-dir to keep the image small
-# We install CPU-only version of torch to save significant space if compatible, 
-# otherwise standard install is fine but larger. 
-# For simplicity and compatibility, we'll stick to the requirements file.
-RUN pip install --no-cache-dir --upgrade pip && \
-    pip install --no-cache-dir -r requirements.txt
+# CRITICAL FIX: Install CPU-only Torch first.
+# The standard Torch is 2GB+ vs 100MB for CPU version. 
+# This prevents build timeouts and disk space errors on free tiers.
+RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
+
+# Install other requirements
+# Using --extra-index-url ensures compatible dependencies are found
+RUN pip install --no-cache-dir -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
 
 # Copy the rest of the application code
 COPY . .
@@ -25,5 +31,5 @@ EXPOSE 5000
 ENV FLASK_APP=app.py
 
 # Run app.py when the container launches using Gunicorn
-# Adjust workers matches available cores, but 1-2 is usually fine for free tiers
+# Increased timeout to 120s to allow model loading
 CMD ["gunicorn", "--bind", "0.0.0.0:5000", "app:app", "--timeout", "120"]
