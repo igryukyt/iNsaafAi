@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div id="dynamic-content">
+    <div class="content-container">
+        <div class="welcome-banner">
+            <h1>Welcome back, <span id="user-name-banner">Student</span>!</h1>
+            <p>InsaafAI is ready to assist you with legal queries and learning.</p>
+        </div>
+
+        <div class="grid-container">
+            <div class="card" onclick="loadModule('predict')">
+                <h3><i class="fas fa-gavel" style="color: var(--primary-color);"></i> Case Prediction</h3>
+                <p>Predict outcome and IPC sections based on crime details.</p>
+            </div>
+            <div class="card" onclick="loadModule('ipc')">
+                <h3><i class="fas fa-book" style="color: var(--secondary-color);"></i> IPC Browser</h3>
+                <p>Search and read about complete Indian Penal Code.</p>
+            </div>
+            <div class="card" onclick="loadModule('learn')">
+                <h3><i class="fas fa-graduation-cap" style="color: #f59e0b;"></i> Learn Law</h3>
+                <p>Simplified legal education modules for everyone.</p>
+            </div>
+            <div class="card" onclick="loadModule('quiz')">
+                <h3><i class="fas fa-question-circle" style="color: #ec4899;"></i> Legal Quiz</h3>
+                <p>Test your knowledge with interactive quizzes.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

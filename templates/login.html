@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>InsaafAI - AI-Powered Legal Education</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="landing-nav">
+        <div class="container" style="display:flex; justify-content:space-between; align-items:center;">
+            <div class="nav-brand">
+                <div style="background: var(--text-color); color: white; padding: 0.25rem 0.5rem; border-radius: 4px;">
+                    <i class="fas fa-balance-scale"></i>
+                </div>
+                InsaafAI
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#">Home</a></li>
+                <li><a href="#" onclick="exploreIPC()">Explore IPC</a></li>
+            </ul>
+            <div class="nav-buttons">
+                <button class="btn-outline" onclick="openAuth('login')">Login</button>
+                <button class="btn-primary-solid" onclick="openAuth('signup')">Sign Up</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Enhanced Styles for Landing Page -->
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            padding: 6rem 0;
+            color: white;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            margin-bottom: 3rem;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 1px solid #f3f4f6;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-size: 0.85rem;
+        }
+
+        /* Mobile Optimization */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 4rem 1rem 6rem 1rem;
+                clip-path: polygon(0 0, 100% 0, 100% 95%, 0 100%);
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .landing-nav {
+                flex-direction: column;
+                gap: 1rem;
+                padding: 1rem;
+            }
+
+            .nav-menu {
+                display: none;
+            }
+
+            .nav-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+
+    <!-- About Section -->
+    <section class="about-section">
+        <div class="about-grid">
+            <div>
+                <h2 style="font-size: 2.5rem; margin-bottom: 1.5rem; color: var(--text-color); font-weight: 800;">About
+                    InsaafAI</h2>
+                <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.1rem;">
+                    InsaafAI is a cutting-edge legal education platform designed specifically for law students,
+                    legal professionals, and anyone interested in understanding Indian criminal law. Our platform
+                    combines the power of artificial intelligence with comprehensive legal resources.
+                </p>
+                <p style="color: var(--text-light); line-height: 1.8; margin-bottom: 2rem; font-size: 1.1rem;">
+                    Whether you're preparing for exams, researching case precedents, or simply curious about
+                    the Indian Penal Code, InsaafAI provides the tools you need to succeed.
+                </p>
+                <div
+                    style="display: flex; gap: 1rem; align-items: center; color: var(--text-color); font-weight: 600; background: #fff7ed; padding: 1rem; border-radius: 10px; border: 1px solid #ffedd5;">
+                    <div
+                        style="background: #d97706; padding: 0.5rem; border-radius: 50%; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px;">
+                        <i class="fas fa-users" style="color: white; font-size: 1rem;"></i>
+                    </div>
+                    Trusted by law students across India
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-number">511</span>
+                    <span class="stat-label">IPC Sections</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">10+</span>
+                    <span class="stat-label">Learning Topics</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number"><i class="fas fa-file-alt"></i></span>
+                    <span class="stat-label">Document Analysis</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">24/7</span>
+                    <span class="stat-label">AI Availability</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Bottom CTA Section -->
+    <section style="background-color: white; padding: 5rem 1rem; text-align: center; border-top: 1px solid #f3f4f6;">
+        <div class="container" style="max-width: 800px;">
+            <h2 style="font-size: 2.5rem; font-weight: 800; color: var(--text-color); margin-bottom: 1rem;">Ready to Get
+                Started?</h2>
+            <p style="color: var(--text-light); font-size: 1.2rem; margin-bottom: 2rem;">
+                Join hundreds of law students and professionals using InsaafAI today.
+            </p>
+            <div style="display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;">
+                <button class="btn-primary-solid" style="padding: 1rem 2.5rem; font-size: 1.1rem;"
+                    onclick="openAuth('signup')">
+                    Create Free Account
+                </button>
+                <button class="btn-outline" style="padding: 1rem 2.5rem; font-size: 1.1rem;"
+                    onclick="openAuth('login')">
+                    Login
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Auth Modal Overlay -->
+    <div id="auth-modal" class="modal-overlay">
+        <div class="modal-content-wrapper">
+            <div class="close-modal-btn" onclick="closeAuthModal()">&times;</div>
+
+            <!-- Login Box -->
+            <div class="auth-box" id="login-box">
+                <div class="auth-header">
+                    <h2><i class="fas fa-balance-scale"></i> InsaafAI</h2>
+                    <p>Welcome back! Login to continue.</p>
+                </div>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="text" id="login-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="login-password" required>
+                            <button type="button" class="password-toggle"
+                                onclick="togglePasswordVisibility('login-password', this)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn">Login</button>
+                </form>
+                <p class="toggle-link">Don't have an account? <span onclick="toggleAuth()">Sign Up Now</span></p>
+            </div>
+
+            <!-- Signup Box -->
+            <div class="auth-box" id="signup-box">
+                <div class="auth-header">
+                    <h2>Create Account</h2>
+                    <p>Join InsaafAI today.</p>
+                </div>
+                <form id="signup-form">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" id="signup-username" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="signup-email" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Password</label>
+                        <div class="password-wrapper">
+                            <input type="password" id="signup-password" required placeholder="Create a strong password">
+                            <button type="button" class="password-toggle"
+                                onclick="togglePasswordVisibility('signup-password', this)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </div>
+
+                        <!-- Password Strength Bar -->
+                        <div class="password-strength-container">
+                            <div class="strength-bar-bg" id="strength-bar">
+                                <div class="strength-segment"></div>
+                                <div class="strength-segment"></div>
+                                <div class="strength-segment"></div>
+                            </div>
+                        </div>
+
+                        <!-- Password Requirements Checklist -->
+                        <ul class="password-requirements" id="password-reqs">
+                            <li class="requirement-item" id="req-length"><i class="far fa-circle"></i> 8+ characters
+                            </li>
+                            <li class="requirement-item" id="req-capital"><i class="far fa-circle"></i> 1 Capital Letter
+                            </li>
+                            <li class="requirement-item" id="req-special"><i class="far fa-circle"></i> 1 Special
+                                Character</li>
+                            <li class="requirement-item" id="req-number"><i class="far fa-circle"></i> 1 Number</li>
+                        </ul>
+                    </div>
+                    <button type="submit" class="btn">Sign Up</button>
+                </form>
+                <p class="toggle-link">Already have an account? <span onclick="toggleAuth()">Login Now</span></p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="{{ url_for('static', filename='js/api.js') }}"></script>
+    <script>
+        // Inline script for auth page specific logic
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof checkAuth === 'function') {
+                const user = checkAuth();
+                if (user) {
+                    // User is already logged in, redirect to dashboard
+                    // Replace state so back button doesn't come back here immediately
+                    window.history.replaceState(null, '', '/dashboard');
+                    window.location.href = '/dashboard';
+                }
+            }
+        });
+
+        function toggleAuth() {
+            const loginBox = document.getElementById('login-box');
+            const signupBox = document.getElementById('signup-box');
+
+            if (loginBox.classList.contains('active')) {
+                loginBox.classList.remove('active');
+                signupBox.classList.add('active');
+            } else {
+                signupBox.classList.remove('active');
+                loginBox.classList.add('active');
+            }
+        }
+
+        function openAuth(type) {
+            const modal = document.getElementById('auth-modal');
+            const loginBox = document.getElementById('login-box');
+            const signupBox = document.getElementById('signup-box');
+
+            modal.classList.add('active');
+
+            // Reset state
+            loginBox.classList.remove('active');
+            signupBox.classList.remove('active');
+
+            if (type === 'signup') {
+                signupBox.classList.add('active');
+            } else {
+                loginBox.classList.add('active');
+            }
+        }
+
+        function closeAuthModal() {
+            document.getElementById('auth-modal').classList.remove('active');
+        }
+
+        // Close modal if clicking outside
+        document.getElementById('auth-modal').addEventListener('click', function (e) {
+            if (e.target === this) {
+                closeAuthModal();
+            }
+        });
+
+        // Close on ESC key
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                closeAuthModal();
+            }
+        });
+
+        function exploreIPC() {
+            const user = localStorage.getItem('user');
+            if (user) {
+                // Already logged in, go to dashboard IPC module
+                localStorage.setItem('pending_module', 'ipc');
+                window.location.href = '/dashboard';
+            } else {
+                // Not logged in, show login modal with intent
+                localStorage.setItem('pending_module', 'ipc');
+
+                // Update login modal text to context
+                const loginBox = document.getElementById('login-box');
+                loginBox.querySelector('h2').innerHTML = '<i class="fas fa-lock"></i> Login Required';
+                loginBox.querySelector('p').textContent = 'Please login to explore IPC sections.';
+
+                openAuth('login');
+            }
+        }
+    </script>
+    <!-- Premium Notification Container -->
+    <div id="notification-container" class="notification-container"></div>
+</body>
+
+</html>

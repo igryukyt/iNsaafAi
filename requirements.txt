@@ -1,0 +1,9 @@
+
+Flask==3.0.0
+Flask-Cors==4.0.0
+deep-translator==1.11.4
+sentence-transformers>=3.0.0
+torch
+gunicorn
+python-dotenv
+pypdf==3.17.0
