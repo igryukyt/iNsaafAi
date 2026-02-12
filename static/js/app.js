@@ -983,12 +983,13 @@ let glbScore = 0;
 let currentQuizType = '';
 
 function startQuiz(type) {
-    currentQuiz = quizzes[type] || quizzes['ipc_basics'];
+    currentQuiz = quizzes[type] || quizzes['level1'];
     currentQuizType = type;
     glbCurrentIndex = 0;
     glbScore = 0;
 
     // Hide buttons, show quiz area
+    document.getElementById('quiz-options-list').style.display = 'none';
     document.getElementById('quiz-area').style.display = 'block';
     renderQuestion();
 }
@@ -1077,7 +1078,7 @@ function showResults() {
             
             <div style="margin-top:2rem;">
                 <button class="btn" style="width:auto; margin-right:1rem;" onclick="loadModule('quiz')">Back to Quizzes</button>
-                <button class="btn btn-secondary" style="width:auto;" onclick="startQuiz('ipc_basics')">Try Again</button>
+                <button class="btn btn-secondary" style="width:auto;" onclick="startQuiz(currentQuizType)">Try Again</button>
             </div>
         </div>
     `;
